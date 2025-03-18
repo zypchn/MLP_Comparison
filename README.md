@@ -38,7 +38,28 @@ SGD updates the weights based on a singe sample or a small batch of data, the sa
 The purpuse of this study was to conduct a comparative analysis to demonstrate the capabilities of different MLP models. The models mainly differed on 2 fields: number of hidden layers and activation functions.
 
 ## Methods
-The first step of the study was to find a dataset that can be quickly trained. That means approximately 1000-1500 instances. [Bank Note Authentication UCI Data](https://www.kaggle.com/datasets/ritesaluja/bank-note-authentication-uci-data) was choosen.
+The first step of the study was to find a dataset that can be quickly trained, that means approximately 1000-1500 instances and not so many features. For those reasons, I choose: [Bank Note Authentication UCI Data](https://www.kaggle.com/datasets/ritesaluja/bank-note-authentication-uci-data). The dataset contains features extracted from real-life banknote-like images. 5 features were extraced from the images: *variance*, *skewness*, *kurtosis*, *entropy*, *class*. Some of the terms explain themselves, but for the ones that don't:
+- Skewness: Measure of the asymmetry of the probability distribution of a real-valued random variable about its mean
+- Kurtosis: The sharpness of the peak of a frequency-distribution curve
+<br />
+
+Then, I defined 4 models with the following architectures:
+- 2 Hidden Layers with *Tanh* as the activation function
+- 2 Hidden Layers with *ReLU* as the activation function
+- 3 Hidden Layers with *Tanh* as the activation function
+- 3 Hidden Layers with *ReLU* as the activation function
+
+Each hidden layer in every architecture has 5 nodes per layer. The other factors, like train/test split, or initial parameters are same for every architecture.
+
+For the implementation process, I used the following libraries: 
+- numpy:
+- pandas:
+- sklearn:
+
+After every model was trained, I selected the one with the best performance. The selection process contains an arbitrary formula that I created: (accuracy / num_steps). It should be noted that I trained every model until it has a loss less than 0.25, so the *num_steps* is the first step that it exceeded the 0.25 threshold. The best model was then implemented using PyTorch to see if it can achieve the same results with the same parameters and activation function.
+My expectation before the experiments was that 2 hidden layers with the ReLU activation function to be the best performing one.
+
+## Results
 
 ### Resources:
 - https://www.geeksforgeeks.org/multi-layer-perceptron-learning-in-tensorflow/
