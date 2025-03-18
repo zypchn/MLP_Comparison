@@ -41,7 +41,7 @@ The purpuse of this study was to conduct a comparative analysis to demonstrate t
 The first step of the study was to find a dataset that can be quickly trained, that means approximately 1000-1500 instances and not so many features. For those reasons, I choose: [Bank Note Authentication UCI Data](https://www.kaggle.com/datasets/ritesaluja/bank-note-authentication-uci-data). The dataset contains features extracted from real-life banknote-like images. 5 features were extraced from the images: *variance*, *skewness*, *kurtosis*, *entropy*, *class*. Some of the terms explain themselves, but for the ones that don't:
 - Skewness: Measure of the asymmetry of the probability distribution of a real-valued random variable about its mean
 - Kurtosis: The sharpness of the peak of a frequency-distribution curve
-<br />
+The dataset was splitted as 80% training and 20% as test.
 
 Then, I defined 4 models with the following architectures:
 - 2 Hidden Layers with *Tanh* as the activation function
@@ -52,14 +52,22 @@ Then, I defined 4 models with the following architectures:
 Each hidden layer in every architecture has 5 nodes per layer. The other factors, like train/test split, or initial parameters are same for every architecture.
 
 For the implementation process, I used the following libraries: 
-- numpy:
-- pandas:
-- sklearn:
+- numpy: 1.26.4
+- pandas: 2.2.3
+- sklearn: 1.2.2
 
-After every model was trained, I selected the one with the best performance. The selection process contains an arbitrary formula that I created: (accuracy / num_steps). It should be noted that I trained every model until it has a loss less than 0.25, so the *num_steps* is the first step that it exceeded the 0.25 threshold. The best model was then implemented using PyTorch to see if it can achieve the same results with the same parameters and activation function.
+After every model was trained, I selected the one with the best performance. The selection process contains an arbitrary formula that I created: (accuracy*100 / num_steps). It should be noted that I trained every model until it has a loss less than 0.20, so the *num_steps* is the first step that it exceeded the 0.20 threshold. The initial num_steps for each model was set to 5000. If a model failed to exceed the threshold, the number of steps was increased to 10000. If it still failed, the training process was stopped. This means that any model unable to surpass the 0.20 threshold within 10000 iterations was penalized with -1 point. The best model was then implemented using PyTorch to see if it can achieve the same results with the same parameters and activation function.
 My expectation before the experiments was that 2 hidden layers with the ReLU activation function to be the best performing one.
 
 ## Results
+The table that compares the architectures with their accuracy & num_steps is shown below:
+| Architecture | Avg. Accuracy | Number of Steps | Score (penalties included) |
+|--|--|--|--|
+| 2 Hidden Layers & Tanh | 0.9673 | 644 | 0.1502
+| 2 Hidden Layers & ReLU | 0.9309 | 10000 | -0.9906
+| 3 Hidden Layers & Tanh | 0.9745 | 3645 | 0.0267
+| 3 Hidden Layers & Relu | 0.9200 | 10000 | -0.9908
+
 
 ### Resources:
 - https://www.geeksforgeeks.org/multi-layer-perceptron-learning-in-tensorflow/
