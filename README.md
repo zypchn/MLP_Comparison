@@ -82,7 +82,9 @@ Each model's metrics (avg. accuracy, precision, recall, F1 score), confusion mat
 - *3 Hidden Layers* and *ReLu*: <br />
 ![image](https://github.com/user-attachments/assets/69208cfc-d4dc-44fe-af50-b7e1c51c2a29)
 
-- *2 Hidden Layers* and *Tanh* (PyTorch):
+- *2 Hidden Layers* and *Tanh* (PyTorch): <br />
+![image](https://github.com/user-attachments/assets/d7efaf8b-0cdf-47fc-be8f-9872525086d4)
+
 
 
 ## Discussions
@@ -94,6 +96,8 @@ Possible fixes regarding ReLU convergence issue:
 - Use Leaky ReLU to avoid dead neurons
 - Use Adam optimizer
 - Change the learning rate
+
+Finall PyTorch implementation worked better in terms of loss and various metrics. It outperformed it's counterpart on every measurement. This could happen because of the fact that we used tensors instead pf numpy arrays, or that PyTorch functions are more stable that the ones we implemented manually.
 
 Further experimentation is required to explore these solutions.
 
